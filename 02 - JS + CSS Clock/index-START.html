@@ -61,13 +61,35 @@
       background:black;
       position: absolute;
       top:50%;
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.83, 2.11, 0, 1.46);
+      transform-origin: 100%;
+      transform: rotate(90deg);
+    }
+  </style>
+  
+  <script>
+    var h = document.querySelector('.hour-hand');
+    var m = document.querySelector('.min-hand');
+    var s = document.querySelector('.second-hand');
+
+    displayTime();
+    setInterval(displayTime, 1000);
+
+    function displayTime() {
+      var now = new Date();
+
+      var sPos = 6 * now.getSeconds();
+      var mPos = 6 * now.getMinutes();
+      var hPos = 30 * now.getHours() + mPos/60;
+
+      moveHand(s, sPos); moveHand(m, mPos); moveHand(h, hPos);
     }
 
-  </style>
-
-  <script>
-
-
+    function moveHand(hand, deg) {
+      deg += 90; // offset
+      hand.style.transform = 'rotate(' + deg + 'deg)';
+    }
   </script>
 </body>
 </html>
